@@ -1,14 +1,64 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Star Wars Filmes
+      Consulta de CEP
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item button detail lines="inset" *ngfor="let film of (films|async)?.results">{{film.title}}</ion-item>
-    (click)="openDetails(film)">
-    </ion-list>
+  <ion-item>
+    <ion-label position="stacked">Digite o CEP</ion-label>
+    <ion-input [(ngModel)]="cep" type="text" placeholder="CEP"></ion-input>
+  </ion-item>
+  <ion-button shape="round" color="tertiary" expand="full" (click)="consultarCEP()">Consultar Endereço</ion-button>
+
+
+
+  <ion-card *ngIf="endereco">
+    <ion-card-header>
+      Resultados Encontrados - CEP
+    </ion-card-header>
+    <ion-card-content>
+      <p>CEP: {{ endereco.cep }}</p>
+      <p>Praça: {{ endereco.logradouro }}</p>
+      <p>Bairro: {{ endereco.bairro }}</p>
+      <p>Cidade: {{ endereco.localidade }}</p>
+      <p>Estado: {{ endereco.uf }}</p>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-item>
+    <ion-label position="stacked">Digite a sigla do estado</ion-label>
+    <ion-input [(ngModel)]="uf" type="text" placeholder="Sigla"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Digite o nome da cidade</ion-label>
+    <ion-input [(ngModel)]="localidade" type="text" placeholder="Cidade"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Digite o nome da Rua</ion-label>
+    <ion-input [(ngModel)]="logradouro" type="text" placeholder="Rua"></ion-input>
+  </ion-item>
+
+  <ion-button shape="round" color="tertiary" expand="full" (click)="consultar2()" [disabled]="!uf || !localidade || !logradouro">Consultar CEP</ion-button>
+
+  <ion-card *ngIf="endereco2">
+    <ion-card-header>
+      Resultados Encontrados - Sigla, Cidade e Rua
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let enderecoFinal of endereco2">
+      <p>Estado: {{ enderecoFinal.uf }}</p>
+      <p>Cidade: {{ enderecoFinal.localidade }}</p>
+      <p>Praça: {{ enderecoFinal.logradouro }}</p>
+      <p>Bairro: {{ enderecoFinal.bairro }}</p>
+      <p>CEP: {{ enderecoFinal.cep }}</p>
+      <p>-----------------------------------------------------------</p>
+    </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

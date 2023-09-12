@@ -1,7 +1,5 @@
 {
-  "name": "API",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "AC_CEP",
+  "integrations": {},
   "type": "angular"
 }
